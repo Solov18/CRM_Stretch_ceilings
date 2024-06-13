@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Диспетчер задач</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/customers">Клиенты</a></li>
+        <li><a href="/sales">Продажи</a></li>
+        <li><a href="/tasks">Задачи</a></li>
+        <li><a href="/">Выход</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Диспетчер задач</h1>
+    <form action="/addtask" method="post" class="form">
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <input type="text" id="description" name="description" required/>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Крайний срок задачи</label>
+            <input type="datetime-local" id="deadline" name="deadline" required/>
+        </div>
+        <button type="submit" class="button">Добавить задачу</button>
+    </form>
+    <div class="filter mt-3">
+        <label for="filter">Фильтр статусов :</label>
+        <select id="filter" name="filter" class="form-control" onchange="window.location.href='/tasks?filter=' + this.value;">
+            <option value="all" th:selected="${filter == 'all'}">Все</option>
+            <option value="nostart" th:selected="${filter == 'nostart'}">Не начато</option>
+            <option value="inwork" th:selected="${filter == 'inwork'}">В работеk</option>
+            <option value="ready" th:selected="${filter == 'ready'}">Завершонные</option>
+        </select>
+    </div>
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Описание</th>
+            <th>Крайний срок</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.deadline}"></td>
+            <td th:text="${task.status}"></td>
+            <td>
+                <a th:href="@{'/upd/' + ${task.id}}" class="button edit">Изменить статус</a>
+                <a th:href="@{'/deltask/' + ${task.id}}" class="button delete">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

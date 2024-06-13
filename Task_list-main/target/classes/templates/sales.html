@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sales</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/customers">Клиенты</a></li>
+        <li><a href="/sales">Продажи</a></li>
+        <li><a href="/tasks">Задачи</a></li>
+        <li><a href="/">Выход</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Продажи</h1>
+    <a href="/sales/new" class="button">Добавить Продажу</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Наименование:</th>
+            <th>Цена:</th>
+            <th>Дата продажи</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sale : ${sales}">
+            <td th:text="${sale.id}"></td>
+            <td th:text="${sale.product}"></td>
+            <td th:text="${sale.amount}"></td>
+            <td th:text="${#temporals.format(sale.saleDate, 'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{'/sales/edit/' + ${sale.id}}" class="button edit">Редактировать</a>
+                <a th:href="@{'/sales/delete/' + ${sale.id}}" class="button delete">Удалить</a>
+                <a th:href="@{'/sales/details/' + ${sale.id}}" class="button">Подробности</a> <!-- Добавляем кнопку для деталей -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Sale</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/customers">Клиенты</a></li>
+        <li><a href="/sales">Продажи</a></li>
+        <li><a href="/tasks">Задачи</a></li>
+        <li><a href="/">Выход</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Редактировать Продажу</h1>
+    <form th:action="@{/sales/edit/{id}(id=${sale.id})}" method="post" class="form">
+        <input type="hidden" th:value="${sale.id}" name="id" />
+        <div class="form-group">
+            <label for="product">Продукт:</label>
+            <input type="text" id="product" name="product" th:value="${sale.product}" required>
+            <div class="invalid-feedback">Пожалуйста, введите продукт.</div>
+        </div>
+        <div class="form-group">
+            <label for="amount">Стоимость:</label>
+            <input type="number" id="amount" name="amount" th:value="${sale.amount}" required>
+            <div class="invalid-feedback">Пожалуйста, введите стоимость.</div>
+        </div>
+        <div class="form-group">
+            <label for="saleDate">Дата продажи:</label>
+            <input type="date" id="saleDate" name="saleDate" th:value="${#temporals.format(sale.saleDate, 'yyyy-MM-dd')}" required>
+            <div class="invalid-feedback">Пожалуйста, введите дату продажи.</div>
+        </div>
+        <div class="form-group">
+            <label for="customer">Покупатель:</label>
+            <select id="customer" name="customer" required>
+                <option value="">Выберите покупателя</option>
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.firstName + ' ' + customer.lastName}" th:selected="${customer.id} == ${sale.customer.id}"></option>
+            </select>
+            <div class="invalid-feedback">Пожалуйста, выберите покупателя.</div>
+        </div>
+        <button type="submit" class="button">Сохранить</button>
+    </form>
+</main>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

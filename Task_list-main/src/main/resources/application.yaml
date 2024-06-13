@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./mdb23
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always

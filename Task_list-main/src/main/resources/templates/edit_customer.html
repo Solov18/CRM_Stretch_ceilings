@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Customer</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/customers">Клиенты</a></li>
+        <li><a href="/sales">Продажи</a></li>
+        <li><a href="/tasks">Задачи</a></li>
+        <li><a href="/">Выход</a></li>
+    </ul>
+</nav>
+<main>
+    <h1>Редактировать клиента</h1>
+    <form class="form" th:action="@{/customers/edit/{id}(id=${customer.id})}" th:object="${customer}" method="post">
+        <div class="form-group">
+            <label for="firstName">Имя</label>
+            <input type="text" id="firstName" th:field="*{firstName}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name is required</div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input type="text" id="lastName" th:field="*{lastName}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name is required</div>
+        </div>
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" id="email" th:field="*{email}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Valid email is required</div>
+        </div>
+        <button type="submit" class="button">Сохранить</button>
+    </form>
+</main>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

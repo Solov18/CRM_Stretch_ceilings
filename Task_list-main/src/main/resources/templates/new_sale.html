@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Новая Продажа</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="/">Главная</a></li>
+    <li><a href="/customers">Клиенты</a></li>
+    <li><a href="/sales">Продажи</a></li>
+    <li><a href="/tasks">Задачи</a></li>
+    <li><a href="/">Выход</a></li>
+  </ul>
+</nav>
+<main>
+  <h1>Новая Продажа</h1>
+  <form action="#" th:action="@{/sales}" th:object="${sale}" method="post" class="form">
+    <div class="form-group">
+      <label>Продукт:</label>
+      <input type="text" th:field="*{product}" />
+    </div>
+    <div class="form-group">
+      <label>Стоимость:</label>
+      <input type="text" th:field="*{amount}" />
+    </div>
+    <div class="form-group">
+      <label>Дата продажи:</label>
+      <input type="date" th:field="*{saleDate}" />
+    </div>
+    <div class="form-group">
+      <label>Покупатель:</label>
+      <select th:field="*{customer}">
+        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.firstName + ' ' + customer.lastName}"></option>
+      </select>
+    </div>
+    <button type="submit" class="button">Сохранить</button>
+  </form>
+  <a th:href="@{/sales}">Назад к продажам</a>
+</main>
+<script src="/js/scripts.js"></script>
+</body>
+</html>
